@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+ansible\PYGZhy{}playbook \PYGZhy{}i inventory.ini \PYGZhy{}u
+\end{Verbatim}

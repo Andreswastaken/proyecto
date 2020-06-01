@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nb}{echo} \PYG{l+s+s2}{\PYGZdq{}fai\PYGZdq{}} \PYG{p}{|} ansible\PYGZhy{}playbook playbookConfig.yml \PYGZhy{}i inventory.ini \PYGZhy{}\PYGZhy{}ask\PYGZhy{}pass \PYGZhy{}u root
+\end{Verbatim}

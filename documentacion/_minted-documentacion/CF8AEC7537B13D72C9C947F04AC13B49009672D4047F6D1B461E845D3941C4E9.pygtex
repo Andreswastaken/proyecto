@@ -1,0 +1,70 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nn}{\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{hosts}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{portatiles}
+  \PYG{n+nt}{become}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{yes}
+  \PYG{n+nt}{tasks}\PYG{p}{:}
+  \PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{name}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Instalar dependencias para añadir los repositorios sobre https y de Docker}
+    \PYG{n+nt}{apt}\PYG{p}{:}
+      \PYG{n+nt}{pkg}\PYG{p}{:}
+      \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+lScalar+lScalarPlain}{apt\PYGZhy{}transport\PYGZhy{}https}
+      \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+lScalar+lScalarPlain}{ca\PYGZhy{}certificates}
+      \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+lScalar+lScalarPlain}{curl}
+      \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+lScalar+lScalarPlain}{gnupg2}
+      \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+lScalar+lScalarPlain}{software\PYGZhy{}properties\PYGZhy{}common}
+      \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+lScalar+lScalarPlain}{python3\PYGZhy{}pip}
+      \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+lScalar+lScalarPlain}{virtualenv}
+      \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+lScalar+lScalarPlain}{python3\PYGZhy{}setuptools}
+      \PYG{n+nt}{update\PYGZus{}cache}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{yes}
+
+  \PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{name}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Asegurarse de que el modulo de python de docker esta presente}
+    \PYG{n+nt}{pip}\PYG{p}{:}
+      \PYG{n+nt}{name}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{docker[tls]}
+
+  \PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{name}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Añadir la clave gpg del repositorio de docker}
+    \PYG{n+nt}{apt\PYGZus{}key}\PYG{p}{:}
+      \PYG{n+nt}{url}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{https://download.docker.com/linux/debian/gpg}
+      \PYG{n+nt}{state}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{present}
+
+  \PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{name}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Añadir el repositorio oficial}
+    \PYG{n+nt}{apt\PYGZus{}repository}\PYG{p}{:}
+      \PYG{n+nt}{repo}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{deb [arch=amd64] https://download.docker.com/linux/debian stretch stable}
+      \PYG{n+nt}{state}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{present}
+
+  \PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{name}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Meter el repositorio en la cache}
+    \PYG{n+nt}{become}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{yes}
+    \PYG{n+nt}{apt}\PYG{p}{:}
+      \PYG{n+nt}{name}\PYG{p}{:} \PYG{l+s}{\PYGZdq{}*\PYGZdq{}}
+      \PYG{n+nt}{state}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{latest}
+      \PYG{n+nt}{update\PYGZus{}cache}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{yes}
+      \PYG{n+nt}{force\PYGZus{}apt\PYGZus{}get}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{yes}
+
+  \PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{name}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Instalar los paquetes requeridos}
+    \PYG{n+nt}{apt}\PYG{p}{:}
+      \PYG{n+nt}{name}\PYG{p}{:}
+      \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+lScalar+lScalarPlain}{docker\PYGZhy{}ce}
+      \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+lScalar+lScalarPlain}{git}
+      \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+lScalar+lScalarPlain}{wget}
+      \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+lScalar+lScalarPlain}{emacs}
+      \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+lScalar+lScalarPlain}{ansible}
+      \PYG{n+nt}{state}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{latest}
+
+  \PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{name}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Añadir el usuario administrador en todos los portatiles}
+    \PYG{n+nt}{user}\PYG{p}{:}
+      \PYG{n+nt}{name}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{admin}
+      \PYG{n+nt}{shell}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{/bin/zsh}
+      \PYG{n+nt}{password}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{crnQhFtaqn6c6}
+      \PYG{n+nt}{group}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{sudo}
+
+  \PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{name}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Añadir el usuario trabajador en todos los portatiles}
+    \PYG{n+nt}{user}\PYG{p}{:}
+      \PYG{n+nt}{name}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{worker}
+      \PYG{n+nt}{shell}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{/bin/zsh}
+      \PYG{n+nt}{password}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{crAJRw6JFh9ik}
+      \PYG{n+nt}{group}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{docker}
+
+  \PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{name}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Eliminar el usuario fai añadido por defecto}
+    \PYG{n+nt}{user}\PYG{p}{:}
+      \PYG{n+nt}{name}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{fai}
+      \PYG{n+nt}{state}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{absent}
+      \PYG{n+nt}{remove}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{yes}
+\end{Verbatim}

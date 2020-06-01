@@ -1,0 +1,23 @@
+#+TITLE: Organización y plazos
+#+AUTHOR: Andrés Álvarez De Lázaro
+
+* Tareas
+** DONE Hacer presentación proyecto
+** DONE Pulir objetivos del proyecto
+** DONE Crear empresa ficticia que nos contrate
+** DONE Escoger proyecto en el que trabajar
+
+Seguramente acabe siendo una instalación de un entorno de trabajo Linux con automatizacion y ansible. Tambien seria interesante que una parte de la instalacion del entorno de trabajo cuente con un servidor ftp y mas.
+
+** DONE Mejorar la introduccion
+** DONE Empezar con el proyecto en si
+** DONE Acabar instalacion Ansible
+** DONE Copiar subvenciones
+** DONE Mirar seguridad laboral
+** DONE Mirar Ley de proteccion de datos
+
+* Fechas
+** DONE Primera revisión: Envió de esquema y primera versión
+SCHEDULED: <2020-05-08 vie>
+** DONE Entrega del proyecto
+SCHEDULED: <2020-05-30 sáb>

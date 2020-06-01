@@ -1,0 +1,51 @@
+---
+- hosts: server
+
+  tasks:
+  - name: Instalar dependencias
+    apt:
+      pkg:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+      - python3-pip
+      - virtualenv
+      - python3-setuptools
+      - containerd.io
+      update_cache: yes
+
+  - name: Asegurarse de que el módulo de python de docker esta presente
+    pip:
+      name: docker[tls]
+
+  - name: Añadir la clave gpg con apt_key
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+
+  - name: Añadir el repositorio de Docker
+    apt_repository:
+      repo: deb https://download.docker.com/linux/ubuntu bionic stable
+      state: present
+
+  - name: Instalar Docker
+    apt:
+      name: docker-ce
+
+  - name: Asegurarse de que Docker esta realmente arrancado
+    systemd:
+      state: started
+      name: docker
+
+  - name: Docker run con un contenedor de netdata
+    docker_container:
+      name: dockerNetdata
+      image: netdata/netdata
+      state: started
+      ports:
+        - "19999:19999"
+      volumes:
+        - "/proc:/host/proc:ro"
+        - "/sys:/host/sys:ro"
+        - "/var/run/docker.sock:/var/run/docker.sock:ro"

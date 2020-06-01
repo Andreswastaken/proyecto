@@ -1,0 +1,9 @@
+* Repositorio del proyecto: Complit
+
+Toda la documentacion del trabajo y las multiples demonstraciones con org-mode y babel, ademas seran usadas multiples herramientas como Docker por su capacidad para mantener una serie de servicios activos con facilidad o Ansible debido a su uso de archivos YAML para configurar playbooks y asi orquestrar cambios o actualizaciones sobre una serie de nodos.
+
+La finalidad de este proyecto es demostrar como hay diferentes maneras de trabajar y usar la documentacion, no como una parte
+secundaria de la Administracion de Sistemas sino como una parte fundamental, haciendo una documentacion inteligente y diseñada
+para su uso por profesionales.
+
+Haciendo la documentacion de una manera diferente podemos asegurar que los profesionales que tengan que usar nuestras infraestructuras tengan la informacion necesaria para trabajar con el y saber las decisiones que se han tomado.

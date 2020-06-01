@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{[server]}
+\PYG{n+na}{monitorizacion ansible\PYGZus{}port}\PYG{o}{=}\PYG{l+s}{22 ansible\PYGZus{}host=192.168.1.250}
+
+\PYG{k}{[portatiles]}
+\PYG{n+na}{thinkpad ansible\PYGZus{}port}\PYG{o}{=}\PYG{l+s}{22 ansible\PYGZus{}host=192.168.1.10}
+\end{Verbatim}

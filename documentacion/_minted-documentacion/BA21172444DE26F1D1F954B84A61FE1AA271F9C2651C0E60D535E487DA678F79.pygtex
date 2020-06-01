@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+ansible portátiles \PYGZhy{}i inventory.ini \PYGZhy{}m ping \PYGZhy{}u root \PYGZhy{}\PYGZhy{}ask\PYGZhy{}pass
+\end{Verbatim}

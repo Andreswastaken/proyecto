@@ -1,0 +1,27 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nn}{\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{hosts}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{portatiles}
+  \PYG{n+nt}{become}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{yes}
+  \PYG{n+nt}{tasks}\PYG{p}{:}
+  \PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{name}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Instalalar los paquetes requeridos}
+    \PYG{n+nt}{apt}\PYG{p}{:}
+      \PYG{n+nt}{name}\PYG{p}{:}
+      \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+lScalar+lScalarPlain}{docker}
+      \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+lScalar+lScalarPlain}{git}
+      \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+lScalar+lScalarPlain}{wget}
+      \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+lScalar+lScalarPlain}{emacs}
+      \PYG{n+nt}{state}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{latest}
+
+  \PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{name}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Añadir el usuario administrador en todos los portatiles}
+    \PYG{n+nt}{user}\PYG{p}{:}
+      \PYG{n+nt}{name}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{admin}
+      \PYG{n+nt}{shell}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{/bin/zsh}
+      \PYG{n+nt}{password}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{cra72Z6nSf7Z2}
+      \PYG{n+nt}{group}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{sudo}
+
+  \PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{name}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Eliminar el usuario fai añadido por defecto}
+    \PYG{n+nt}{user}\PYG{p}{:}
+      \PYG{n+nt}{name}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{fai}
+      \PYG{n+nt}{state}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{absent}
+      \PYG{n+nt}{remove}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{yes}
+\end{Verbatim}

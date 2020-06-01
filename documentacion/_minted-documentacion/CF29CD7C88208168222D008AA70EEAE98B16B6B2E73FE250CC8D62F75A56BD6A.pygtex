@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{crypt}\PYG{o}{,}\PYG{n+nn}{getpass}\PYG{o}{,}\PYG{n+nn}{sys}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{crypt}\PYG{o}{.}\PYG{n}{crypt}\PYG{p}{(}\PYG{n}{getpass}\PYG{o}{.}\PYG{n}{getpass}\PYG{p}{(),} \PYG{l+s+s2}{\PYGZdq{}crypt.METHOD\PYGZus{}SHA512\PYGZdq{}}\PYG{p}{))}
+\end{Verbatim}

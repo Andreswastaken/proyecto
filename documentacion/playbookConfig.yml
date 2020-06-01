@@ -1,0 +1,75 @@
+---
+- hosts: portatiles
+  become: yes
+  tasks:
+  - name: Instalar dependencias para añadir los repositorios sobre https y de Docker
+    apt:
+      pkg:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg2
+      - software-properties-common
+      - python3-pip
+      - virtualenv
+      - python3-setuptools
+      update_cache: yes
+
+  - name: Asegurarse de que el módulo de python de docker esta presente
+    pip:
+      name: docker[tls]
+
+  - name: Añadir la clave gpg del repositorio de docker
+    apt_key:
+      url: https://download.docker.com/linux/debian/gpg
+      state: present
+
+  - name: Añadir el repositorio oficial
+    apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/debian stretch stable
+      state: present
+
+  - name: Meter el repositorio en la cache
+    become: yes
+    apt:
+      name: "*"
+      state: latest
+      update_cache: yes
+      force_apt_get: yes
+
+  - name: Instalar los paquetes requeridos
+    apt:
+      name:
+      - docker-ce
+      - git
+      - wget
+      - emacs
+      - ansible
+      state: latest
+
+  - name: Añadir el usuario administrador en todos los portatiles
+    user:
+      name: admin
+      shell: /bin/zsh
+      password: cr.SZDemu6tuI
+      group: sudo
+
+  - name: Cambiar la contraseña del usuario root
+    user:
+      name: root
+      shell: /bin/bash
+      password: crfVaiHfC5H3k
+
+  - name: Añadir el usuario trabajador en todos los portatiles
+    user:
+      name: worker
+      shell: /bin/zsh
+      password: crAJRw6JFh9ik
+      group: docker
+
+
+  - name: Eliminar el usuario fai añadido por defecto
+    user:
+      name: fai
+      state: absent
+      remove: yes

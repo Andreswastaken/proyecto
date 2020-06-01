@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{name}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Actualizando repositorio y instalando Docker}
+  \PYG{n+nt}{apt}\PYG{p}{:}
+    \PYG{n+nt}{name}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{docker}
+    \PYG{n+nt}{update\PYGZus{}cache}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{yes}
+
+\PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{name}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Instalando netdata a traves de su one liner}
+  \PYG{n+nt}{shell}\PYG{p}{:}
+    \PYG{n+nt}{cmd}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{bash \PYGZlt{}(curl \PYGZhy{}Ss https://my\PYGZhy{}netdata.io/kickstart.sh)}
+\end{Verbatim}

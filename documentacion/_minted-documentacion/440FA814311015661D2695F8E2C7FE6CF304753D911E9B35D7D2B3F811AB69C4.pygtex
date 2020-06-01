@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{[server]}
+\PYG{n+na}{monitorización ansible\PYGZus{}port}\PYG{o}{=}\PYG{l+s}{22 ansible\PYGZus{}host=192.168.0.250}
+
+\PYG{k}{[portátiles]}
+\PYG{n+na}{192.168.0.[1:21] ansible\PYGZus{}port}\PYG{o}{=}\PYG{l+s}{22}
+
+\PYG{k}{[server:vars]}
+\PYG{n+na}{ansible\PYGZus{}python\PYGZus{}interpreter}\PYG{o}{=}\PYG{l+s}{/usr/bin/python3}
+
+\PYG{k}{[portátiles:vars]}
+\PYG{n+na}{ansible\PYGZus{}python\PYGZus{}interpreter}\PYG{o}{=}\PYG{l+s}{/usr/bin/python3}
+\end{Verbatim}

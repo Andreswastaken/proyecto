@@ -1,0 +1,737 @@
+% Created 2020-05-28 jue 23:46
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage{listings}
+\usepackage[utf8]{inputenc}
+\lstset{basicstyle=\small\ttfamily, columns=flexible,breaklines=true}
+\usepackage{geometry}
+\newlength{\alphabet}
+\pagenumbering{roman}
+\widowpenalty10000
+\clubpenalty9000
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.5em}
+\settowidth{\alphabet}{\normalfont abcdefghijklmnopqrstuvwxyz}
+\usepackage{hyperref}
+\usepackage[spanish]{babel}
+\usepackage{minted}
+\hypersetup{colorlinks=true,linkcolor=blue}
+\usepackage[table]{xcolor}
+\usepackage{adjustbox}
+\definecolor{contiYellow}{RGB}{50,200,80}
+\rowcolors[]{2}{contiYellow!5}{contiYellow!30}
+\usemintedstyle{trac}
+\author{Andrés Álvarez de Lázaro}
+\date{2020-05-29}
+\title{Administración de sistemas \\ mediante documentación literaria}
+\hypersetup{
+ pdfauthor={Andrés Álvarez de Lázaro},
+ pdftitle={Administración de sistemas \\ mediante documentación literaria},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 26.1 (Org mode 9.4)}, 
+ pdflang={Spanish}}
+\begin{document}
+
+\maketitle
+\newpage
+
+\setcounter{tocdepth}{2}
+\tableofcontents
+
+\newpage
+
+\section{Introducción}
+\label{sec:org6eab725}
+
+Este proyecto está realizado por \textbf{Andrés Álvarez De Lázaro}, alumno del segundo curso del Ciclo Formativo de Grado Superior de Administración de Sistemas en Red, cursado en el I.E.S. Número 1, Calle Puerto de Vegarada, s/n, para el módulo Proyecto de Administración de sistemas informáticos en red.
+
+Su título es \textbf{Administración de sistemas mediante documentación literaria}; la finalidad de este proyecto es reflejar la importancia que tiene una buena documentación en la labor de un administrador de sistemas y reflexionar sobre como podría afectar a nuestro flujo de trabajo contar con una documentación inteligente. Es decir, una documentación que no solo ayude a dicho flujo de trabajo, sino que además lo refuerce, llegando a ser en algunos puntos un programa en sí mismo.
+
+\section{Objetivos}
+\label{sec:org1f27f55}
+
+Como mencione anteriormente uno de los objetivos es reflejar la importancia de una buena documentación y buscar un método para hacerla más eficiente pensando en el profesional que la utilice. Otra de las metas finales del proyecto es poseer una documentación/programa que siga el método científico, es decir, que nos permita reproducir y replicar los resultados obtenidos por la documentación en diferentes nodos.
+
+Para entender el título y la finalidad del proyecto es necesario dar una breve explicación sobre el significado del concepto documentación literaria. El término documentación literaria, proviene de un estilo de programación propuesto por Donald Knuth \cite{knuth1992}. En él se argumenta que el código de un programa no debería estar enfocado hacia los ordenadores, sino hacia las personas. Este cambio (en el que podemos apreciar tintes filosóficos) provocaría una inversión en el paradigma normal de la programación, haciendo que el código con comentarios se transforme en prosa con código.
+
+Con ese fundamento mi intención es hacer de la prosa nuestra documentación, con instrucciones embebidas en la misma, dando lugar así a documentación literaria. Una metodología de administración de sistemas con la reproducibilidad del método científico y enfocada al profesional, no a la máquina.
+
+Otra característica importante son las herramientas requeridas o preferibles en la escritura de documentación literaria. El código fuente de dicha documentación requiere de Emacs para funcionar; Emacs como software libre permite a cualquier usuario poder descargar y modificar su código fuente. También se requiere de Org-mode, un modo de Emacs incluido por defecto en su versión base. Este modo nos permite editar texto, hacer listas de tareas, agendas y la funcionalidad imprescindible para el desarrollo de este proyecto, la inclusión a la prosa de bloques de código.
+
+Estos bloques nos permiten rodear de prosa nuestro código, ejecutarlo, compilarlo y hacer control de versiones sobre él. Otra de las cualidades fundamentales de Org-mode es que pueden encontrarse varios bloques de código fuente en un mismo documento .org. Por ende, podemos tener en el mismo documento código Python coexistiendo con C++ y YAML.
+
+Debido al hecho de ser los documentos .org texto plano, no necesitamos de ningún software especial para su visualización o edición. Esto nos permite tener un espacio de trabajo que no depende de software propietario o configuraciones propietarias ineficientes.
+
+Entre las características de Org-mode se encuentra la capacidad de exportar un buffer entero o el árbol en el que nos encontremos, pudiendo exportar solo el Sub-Arbol del proyecto. Esto nos otorga una flexibilidad especial pudiendo tener toda la documentación necesaria en un documento, exportando solo la parte fundamental para nuestra tarea actual.
+
+Estas capacidades de exportación, recogidas en el \textbf{MELPA} (el repositorio más completo y actualizado de paquetes de Emacs) bajo el nombre ox-* permiten exportar un documento .org a un documento en formato PDF, ODT o hacer diapositivas usando Beamer (ox-beamer).
+
+Ansible será una parte fundamental en el desarrollo de este proyecto. Se trata de una plataforma de software \textbf{free} para configurar y administrar nodos, que gestiona dichos nodos a través de SSH y prácticamente no tiene dependencias en los nodos remotos. Dichas dependencias son Python 2 (versión 2.6 or posterior) o Python 3 (versión 3.5 or posterior) junto con un puerto SSH para establecer conexión.
+
+Ansible utiliza el lenguaje de marcas YAML para realizar la configuración y orquestación de los diferentes nodos. Como consecuencia, la infraestructura puede ser tratada como código. De esta manera obtenemos grandes ventajas como la posibilidad de utilizar software de control de versiones sobre dicha infraestructura o la facilidad para el trabajo colaborativo entre administradores de sistemas.
+
+En este proyecto se harán uso de los siguientes módulos trabajados durante el ciclo de Administración de Sistemas Informáticos en Red:
+
+\begin{itemize}
+\item Servicios de Red e Internet
+\item Implantación de Aplicaciones Web
+\item Seguridad y Alta Disponibilidad
+\item Planificación y Administración de Redes
+\item Empresa e Iniciativa Emprendedora
+\item Formación y Orientación Laboral
+\item Implantación de Sistemas Operativos
+\item Administración de Sistemas Operativos
+\item Lenguajes de Marcas y Sistemas de Gestión de Información
+\item Fundamentos de Hardware
+\end{itemize}
+
+\subsection{Ejemplos}
+\label{sec:orga2b1b03}
+
+A continuación muestro la estructura conocida como sourceblock o bloque de código. La utilidad que tiene es inmensa en labores en las que el código necesite de una explicación o en proyectos extremadamente complicados. También se pueden literar archivos como las configuraciones personales de cada usuario.
+
+\begin{verbatim}
+#+begin_src 
+
+#+end_src
+\end{verbatim}
+
+A continuación se muestra un ejemplo con código python:
+
+\begin{minted}[]{python}
+a = 3
+b = 4
+print(a+b)
+\end{minted}
+
+\begin{verbatim}
+7
+\end{verbatim}
+
+
+En el documento .org el código anterior tiene syntax highlighting, tanto en el buffer de edición como en sus diferentes exportaciones a PDF o HTML. También se puede ejecutar usando Org-Babel \cite{schulteorg}, el cual, añade la habilidad de ejecutar código fuente en documentos .org y esta integrado en Org desde la versión 7.0. Otra de las características de Org nos hace posible, mediante la combinación de teclas \texttt{C-c '} (Control+c+'), abrir un buffer en el mayor mode Python, permitiéndonos tener además autocompletion.
+
+Una de las funcionalidades por defecto que tenemos que tener en cuenta es la presencia de sesiones dentro de los bloques de código. La predeterminada es \texttt{no-session}, en ella se envuelve el bloque de código python en una función.
+
+La otra capacidad fundamental por la que usamos Org-Babel es \textbf{org-babel-tangle}, mediante la combinación de teclas \texttt{C-c C-v t} (Control+c, Control+v, t). Este comando recorre todos los sourceblocks y ante un código como el anterior:
+
+\begin{verbatim}
+Cabecera
+---
+#+begin_src python :exports both :session :results output
+:tangle sumaSimple.py :eval no
+---
+Codigo
+---
+a = 3
+b = 4
+print(a+b)
+---
+#+end_src
+\end{verbatim}
+
+Produce un archivo llamado sumaSimple.py en el directorio actual:
+
+\begin{minted}[]{sh}
+ls -alh
+\end{minted}
+
+\begin{verbatim}
+total 504K
+drwxr-xr-x 7 ako ako 4,0K may 28 23:46 .
+drwxr-xr-x 4 ako ako 4,0K may 27 17:05 ..
+-rw-r--r-- 1 ako ako   72 may 28 18:23 ansibleInstall.sh
+-rw-r--r-- 1 ako ako   63 may 28 18:23 ansiblePing.sh
+drwxr-xr-x 2 ako ako 4,0K may 28 20:23 .auctex-auto
+drwxr-xr-x 2 ako ako 4,0K may 28 20:23 auto
+-rw-r--r-- 1 ako ako 4,9K may 28 21:56 bibliografía.bib
+-rw-r--r-- 1 ako ako   73 may 28 18:23 configServidor.sh
+-rw-r--r-- 1 ako ako   86 may 28 18:23 contraseñaAnsible.py
+-rw-r--r-- 1 ako ako 4,8K may 28 23:46 documentacion.bbl
+-rw-r--r-- 1 ako ako  29K may 28 23:17 documentacion.odt
+-rw-r--r-- 1 ako ako  42K may 28 23:46 documentacion.org
+-rw-r--r-- 1 ako ako 307K may 28 23:46 documentacion.pdf
+-rw-r--r-- 1 ako ako  42K may 28 23:46 documentacion.tex
+drwxr-xr-x 2 ako ako 4,0K may 26 15:59 documentos
+drwxr-xr-x 2 ako ako 4,0K may  3 20:58 imagenes
+-rw-r--r-- 1 ako ako  237 may 28 18:23 inventory.ini
+drwxr-xr-x 2 ako ako 4,0K may 28 22:45 _minted-documentacion
+-rw-r--r-- 1 ako ako 1,7K may 28 18:23 playbookConfig.yml
+-rw-r--r-- 1 ako ako 1,2K may 28 18:23 playbookNetdata.yml
+-rw-r--r-- 1 ako ako   23 may 28 18:23 sumaSimple.py
+\end{verbatim}
+
+Cualquiera que haya trabajado con un sistema GNU/Linux reconocerá el comando \texttt{ls -alh}. Comandos como este también son posibles de ejecutar mediante un sourceblock, pudiendo ver que en la última línea se encuentra el archivo sumaSimple.py.
+
+También podemos ejecutar el comando cat sobre el y obtendremos el siguiente resultado:
+
+\begin{minted}[]{sh}
+cat sumaSimple.py
+\end{minted}
+
+\begin{verbatim}
+a = 3
+b = 4
+print(a+b)
+\end{verbatim}
+
+
+Orb-Babel ofrece una gran cantidad de funcionalidades diferentes que no se explorarán en este proyecto. Adjunto más información en el siguiente papel científico \cite{schulte2012}.
+
+Dentro de Org-Babel encontramos una limitación causada por la existencia de playbooks con contraseñas en Ansible:
+\begin{itemize}
+\item No podemos dejar contraseñas en texto plano, tendríamos que ejecutar ansible-vault sobre los playbooks.
+\item Las contraseñas introducidas en un minibuffer python (usando getpass o similares) son representadas como asteriscos. Pero en un sourceblock shell, se introducen mediante una variable en la cabecera del sourceblock: \texttt{:var USER\_INPUT=(read-string "Introduzca su contraseña: ")}. Por consecuencia son insertadas como si fuese una variable normal, es decir, sin ocultar información en pantalla.
+\item Tampoco se puede ejecutar los comandos de Ansible desde emacs directamente debido a un bug al leer contraseñas desde stdin.
+\end{itemize}
+
+Las contraseñas en un sourceblock podrían ser introducidas de la siguiente manera:
+\begin{verbatim}
+Cabecera
+---
+#+BEGIN_SRC sh :exports both :var
+USER_INPUT=(read-string "Introduzca su contraseña: ") :eval no
+---
+Código
+---
+echo $USER_INPUT
+#+END_SRC
+---
+\end{verbatim}
+
+Lo cual produce:
+
+\begin{minted}[]{sh}
+echo $USER_INPUT
+\end{minted}
+
+\begin{verbatim}
+Contraseña1234
+\end{verbatim}
+
+\subsection{Terminología}
+\label{sec:orgfc84ffc}
+
+\begin{itemize}
+\item Weave: Procedimiento de generación y mantenimiento de una documentación sobre el programa.
+\item Tangle: Procedimiento de generación de código maquina ejecutable a partir de la documentación.
+\item Playbook: Archivo en formato YAML usado por Ansible para orquestar la instalación y configuración de sus diferentes nodos.
+\item Inventario: Archivo en formato INI o YAML utilizado para declarar los nodos que van a ser empleados en un playbook o en un comando ad-hoc \cite[pp. 17-44]{ansi2020}.
+\end{itemize}
+
+\section{Características de la empresa}
+\label{sec:org40fb008}
+
+Complit S.L. es una microempresa ya que Andrés Álvarez de Lázaro es el único trabajador. Pertenece al sector terciario debido a los servicios prestados a otras empresas, además se constituye como una empresa privada, de forma jurídica individual.
+
+Su dirección es: Calle Julio , número 42, Bajo. Código Postal 33209, Gijón, Asturias. Correo electrónico: complitdocu@sleepy.co y Teléfono de Contacto: 692 29 89 21.
+
+\section{Proyecto}
+\label{sec:org2be7bea}
+
+El encargado del área de innovación informática de Fenemo S.L., Juan Manuel Padilla nos contacta con un proyecto para renovar su equipamiento. Requiere que realicemos la compra e instalación de 20 portátiles, junto con su configuración y su actualización. Debido a sus cargas de trabajo y workflow necesitan que sus sistemas sean GNU/Linux, con preferencia de Fedora 32 o Debian Buster.
+
+\begin{itemize}
+\item Se nos da un presupuesto de 1200€ por portátil y las especificaciones mínimas son:
+\begin{itemize}
+\item Un procesador Rizen 3 o Intel Core i3 7º Gen (o superior).
+\item 8 GB de RAM DDR4 por encima de los 2000 MHz y a ser posible Dual-Channel.
+\item Discos SSD de 256 GB a ser posible NVMe.
+\item Una batería por encima de los 40 Wh.
+\end{itemize}
+\end{itemize}
+
+Dentro de la instalación de cada uno de los portátiles se nos informa que cada uno debe tener instalado una serie de paquetes entre los cuales se encuentra Docker, Emacs, Wget, Git, Ansible.
+
+Otra de las demandas que se nos hace es la compra de periféricos (ratón y auriculares) lo mas ergonómicos posibles para los 20 portátiles, con un presupuesto de 300 E. por portátil. Nuestro presupuesto total para la compra de hardware es de 6000 E. en periféricos más 24000 E. en los portátiles, lo cual asciende a 30000 E. de presupuesto de los cuales pretendemos usar únicamente el 90\%.
+
+También solicitan la instalación de un servicio de monitorización en el servidor principal de la empresa, tiene que funcionar en un servidor Ubuntu 18.04.4 LTS (Bionic Beaver) y tiene que ser altamente extensible.
+
+Se nos contrata el día 29 de Mayo de 2020 y el proyecto tiene un plazo de finalización de 2 semanas desde el día siguiente al inicio del proyecto.
+
+El empleado de Complit S.L. asignado a la empresa Fenemo S.L. permanecerá en la misma para realizar los múltiples servicios contratados y resolver las dudas que puedan surgir acerca de los mismos.
+
+\subsection{Temporización de las tareas}
+\label{sec:org7171964}
+
+Para la temporización tendremos en cuenta 3 apartados: compra de los equipos, instalación y configuración de los portátiles e instalación del software de monitorización. El primero y parte del segundo apartado son excluyentes, pero la instalación del software de monitorización puede ser realizada el día posterior a la contratación.
+
+La compra de los portátiles es el proceso más largo de todo el proyecto, pero mientras estos y los periféricos son entregados se pueden crear los inventarios y los playbooks para hacer la instalación del software en dichos portátiles y en el servidor.
+
+El día posterior a nuestra contratación comenzaría el trabajo y nos encontraríamos con que la compra de los consumibles rondaría las 2 horas.
+
+La creación del inventario y el testing serían realizado en 30 minutos.
+
+El diseño del playbook para realizar la instalación del software de monitorización nos llevará 2 horas; si a eso le añadimos el testeo necesario para asegurarnos de que el sistema de monitorización funciona a la perfección (alarmas, gráficos, registros etc.) obtenemos un total de 4 horas.
+
+La instalación de los sistemas operativos en los portátiles, nos conllevaría alrededor de 2 horas y el testeo necesario para asegurar que todos los ordenadores y periféricos proporcionados a Fenemo S.L. son aptos nos llevaría otras 2 horas. En total el proceso relativo a los portátiles supondría 4 horas.
+
+La creación del playbook para realizar la instalación del software y su posterior configuración nos tomará 1 hora. Mientras que el despliegue y la entrega de los equipos tomaría 30 minutos.
+
+Encontrándonos ante días laborables de 8 horas, la instalación, configuración y testeo requeridos nos ocuparía 1 día y 4 horas en total, ofreciendo al final de este periodo un servicio reproducible y altamente escalable.
+
+La extensión total del proyecto se alargará en función del período de entrega de los equipos requeridos.
+
+\subsection{Portátiles}
+\label{sec:orgad66ca6}
+
+Debido a la idiosincrasia de los equipos requeridos por Fenemo S.L. hemos decidido invertir en unos portátiles Thinkpad x395. Su durabilidad, horas de uso por carga completa y facilidad de mantenimiento, son entre otras, las características que resultan decisivas en la elección de este material. Los ordenadores están valorados en 1.129,00 E. cada uno, el precio total de estos, asciende hasta los 22580 E. Por ende, nos mantendríamos dentro del presupuesto en portátiles usando solo el 75.27 \% del mismo.
+
+Proponemos además la compra de un ordenador adicional con la intención de no desperdiciar tiempo adquiriendo otro dispositivo, en caso de fallo de alguno de los ordenadores del lote principal debido a un defecto de fábrica. Por tanto gastaríamos 1.129,00 E. adicionales y la suma total ascendería a los 23709 E. Gastando de esta manera 98.78 \% del presupuesto en portátiles. Tras la devolución del material defectuoso y el consecuente reembolso monetario que eso supondría, podemos apreciar que en realidad no implica un malgasto del presupuesto. Se nos contesta afirmativamente a nuestra petición, pero no se ajustará el presupuesto como consecuencia del último portátil, teniendo el mismo presupuesto para los veintiún portátiles.
+
+Pese a existir la opción de devolver el equipo sobrante, recomendamos siempre guardar una serie de equipos de repuestos almacenados.
+
+Los portátiles tardarían 9 días en ser entregados en las instalaciones de Fenemo S.L. y al llegar pasarían inmediatamente a su instalación, configuración y testeo.
+
+\begin{adjustbox}{width={\textwidth},keepaspectratio}
+\centering
+\begin{center}
+\begin{tabular}{ll}
+Requerimiento & Especificación\\
+\hline
+Procesador Rizen 3 & Procesador AMD Ryzen 5 Pro 3500U\\
+DDR4 8 GB > 2000 MHz (a ser posible Dual-Channel) & DDR4 8 GB 2666 MHz\\
+Disco SSD 256 GB (a ser posible NVMe) & Disco SSD 256GB NVMe\\
+Batería mayor de 40 Wh & Batería de 6 celdas de 48 Wh\\
+\end{tabular}
+\end{center}
+\end{adjustbox}
+
+\subsubsection{Configuración}
+\label{sec:org1732f45}
+
+Debido a que nos hayamos ante una instalación de múltiples equipos es mejor automatizarla. Dependiendo de la distribución que usemos (Fedora o Debian), podemos encontrarnos distintos métodos de despliegue. Si estamos realizando una instalación en un espacio de trabajo en el que se use Fedora lo más rápido sería usar Kickstart \cite{red2020}, si estamos trabajando con otra distribución podríamos usar FAI \cite{fai2019} (aunque también funciona con Fedora).
+
+Tras analizar las especificaciones aportadas por Fenemo S.L. y la facilidad de uso de Debian, llegamos a la conclusión de que este último es una opción mucho más acertada para desplegar los portátiles.
+
+Usando el live USB proporcionado por FAI conseguimos hacer una instalación de un sistema completo Debian 10 en 8 minutos en un sistema con un SSD SATA (más lento que el de los portátiles proporcionados a Fenemo S.L.), con 1 GB de RAM DDR4 y un procesador. Por consiguiente podemos suponer que la instalación de uno de los portátiles nos llevara unos 6 minutos, en total 2 horas.
+
+Desde un sistema Linux la instalación de los live USB se realiza con el siguiente comando (siendo /dev/sdb el USB en el que queremos instalar la imagen):
+
+\begin{minted}[]{sh}
+echo $USER_INPUT | sudo -S dd if=~/isos/faicd.iso \
+of=/dev/sdb oflag=sync status=progress bs=4M
+\end{minted}
+
+Estos live USB nos proporcionan un entorno gráfico, donde podemos seleccionar que distribución de GNU/Linux queremos instalar (Gentoo, Debian, etc.). Junto a un menú posterior donde se nos muestra un listado con las diferentes opciones de Desktop Enviroment (Entornos de Escritorio) \cite{archde2020} a seleccionar.
+
+Esa instalación de Debian 10 tiene el puerto 22 activo, lo cual significa que podemos conectarnos a través de SSH a los diferentes nodos. Si usamos un servidor DHCP con veinte (veintiuna para el equipo de reserva) direcciones disponibles, podemos hacer un inventario funcional para su uso con Ansible\cite[pp. 45-53]{ansi2020}
+
+Se nos informa de que el servidor en el que tenemos que instalar el software de monitorización tiene la dirección IP \texttt{192.168.0.250}.
+
+El inventario puede estar en formato YAML o INI, como este es un inventario sencillo, es mucho más conveniente usar el formato INI.
+
+\begin{minted}[]{ini}
+[server]
+monitorización ansible_port=22 ansible_host=192.168.0.250
+
+[portátiles]
+192.168.0.[1:21] ansible_port=22
+
+[server:vars]
+ansible_python_interpreter=/usr/bin/python3
+
+[portátiles:vars]
+ansible_python_interpreter=/usr/bin/python3
+\end{minted}
+
+\begin{minted}[]{sh}
+ansible portátiles -i inventory.ini -m ping -u root --ask-pass
+\end{minted}
+
+El módulo ahora en uso (un módulo se llama con la flag -m \emph{nombre\textsubscript{módulo}}) es el módulo ping, con el que se comprueba la conectividad de Ansible a los host especificados en el comando ad-hoc \cite[pp. 17-44]{ansi2020}
+
+Para actualizar los 21 dispositivos es más eficiente y ordenado utilizar un playbook. La instalación y configuración de estos ordenadores será idempotente y fácilmente actualizable, pudiendo adaptar dicho playbook a las necesidades cambiantes que pueda tener nuestro cliente.
+
+Estos portátiles tienen que ser actualizados y despojados de su usuario root (cuya contraseña es fai).
+
+Otra cuestión a tener en cuenta es la generación de contraseñas. Al almacenarse cifradas en el archivo \textbf{/etc/shadow}, tenemos que introducir en el playbook una contraseña cifrada y para ello podemos utilizar python.
+
+\textbf{Cuando el siguiente sourceblock este en uso la variable :eval debe ser cambiada a yes}
+
+\begin{minted}[]{python}
+import crypt,getpass,sys
+print(crypt.crypt(getpass.getpass(), "crypt.METHOD_SHA512"))
+\end{minted}
+
+\begin{verbatim}
+Password:
+cr.SZDemu6tuI
+\end{verbatim}
+
+
+
+En este sourceblock podemos generar contraseñas para su posterior uso en el playbook como se muestra en \cite{red2016}. El archivo \textbf{/etc/shadow} soporta contraseñas cifradas que usen SHA-256 y SHA-512.
+
+También se pueden leer contraseñas a partir de stdin, en caso de que la intervención manual no sea deseada.
+
+\begin{minted}[]{yaml}
+---
+- hosts: portátiles
+  become: yes
+  tasks:
+  - name: Instalar dependencias para añadir los repositorios sobre https y de Docker
+    apt:
+      pkg:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg2
+      - software-properties-common
+      - python3-pip
+      - virtualenv
+      - python3-setuptools
+      update_cache: yes
+
+  - name: Asegurarse de que el módulo de python de docker esta presente
+    pip:
+      name: docker[tls]
+
+  - name: Añadir la clave gpg del repositorio de docker
+    apt_key:
+      url: https://download.docker.com/linux/debian/gpg
+      state: present
+
+  - name: Añadir el repositorio oficial
+    apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/debian stretch stable
+      state: present
+
+  - name: Meter el repositorio en la cache
+    become: yes
+    apt:
+      name: "*"
+      state: latest
+      update_cache: yes
+      force_apt_get: yes
+
+  - name: Instalar los paquetes requeridos
+    apt:
+      name:
+      - docker-ce
+      - git
+      - wget
+      - emacs
+      - ansible
+      state: latest
+
+  - name: Añadir el usuario administrador en todos los portátiles
+    user:
+      name: admin
+      shell: /bin/zsh
+      password: cr.SZDemu6tuI
+      group: sudo
+
+  - name: Cambiar la contraseña del usuario root
+    user:
+      name: root
+      shell: /bin/bash
+      password: crfVaiHfC5H3k
+
+  - name: Añadir el usuario trabajador en todos los portátiles
+    user:
+      name: worker
+      shell: /bin/zsh
+      password: crAJRw6JFh9ik
+      group: docker
+
+
+  - name: Eliminar el usuario fai añadido por defecto
+    user:
+      name: fai
+      state: absent
+      remove: yes
+\end{minted}
+
+Con este playbook instalaremos los paquetes requeridos por Fenemo S.L., eliminaremos el usuario fai, añadiremos un usuario administrador y cambiaremos la contraseña del usuario root.
+
+\textbf{Comando para realizar la instalación y configuración de los ordenadores mediante ansible-playbook}:
+
+\begin{minted}[]{sh}
+ansible-playbook playbookConfig.yml -i inventory.ini --ask-pass -u root
+\end{minted}
+
+\subsection{Periféricos}
+\label{sec:orgdd71891}
+
+Nos interesa ofrecer a Fenemo S.L. unos periféricos de calidad, que resistan el paso del tiempo, el abuso y principalmente buscamos la mayor ergonomía posible siempre dentro del presupuesto proporcionado.
+
+Nuestra principal propuesta está formada por los ratones Marathon M705 de Logitech. Aunque usan pilas, hacen un uso muy eficiente de ellas y se adaptan naturalmente a la mano del usuario. Recomendamos también la adquisición de auriculares SC 200 SeriesEPOS I SENNHEISER; está última elección aunque resulte más cara, entendemos que es vital para un equipo de Developers que necesiten estar comunicados constantemente. Dado que los productos de Sennheiser son productos de calidad y duraderos, cuya principal característica es la calidad de su sonido y sus micrófonos.
+
+\begin{center}
+\begin{tabular}{lrl}
+Producto & Cantidad & Precio\\
+\hline
+SC 200 SeriesEPOS I SENNHEISER & 20 & 120,00 E.\\
+Marathon M705 & 20 & 51,99  E.\\
+\end{tabular}
+\end{center}
+
+Habiendo invertido en periféricos 3439.80 E. de los 6000 E. disponibles, entendemos que un gasto del 57.33 \% del presupuesto en unos productos de calidad y con una vida útil mínima de 7 años esta más que justificado.
+
+\subsection{Instalación de software de monitorización en un servidor}
+\label{sec:orgbac7d80}
+
+Valoramos diferentes opciones a la hora de seleccionar el software de monitorización, libre y extensible. Introduciremos ademas dos factores de juicio, comunidad y facilidad de uso/extensión. Vamos a tener en cuenta Grafana \cite{grafanagit2020} y Netdata \cite{netdatagit2020}.
+
+\subsubsection{Grafana}
+\label{sec:orga645c0e}
+Las características de Grafana son entre muchas otras: 
+\begin{itemize}
+\item La capacidad de poder visualizar la información en distintos tipos de gráficos.
+\item La capacidad de definir alertas.
+\item La opción de usar Grafana en distintas plataformas, ya sea dentro de Docker o en multitud de sistemas.
+\item Permite recoger datos de múltiples SGBD.
+\item Da la capacidad de compartir datos a los usuarios entre usuarios.
+\item Requiere una configuración inicial extensiva.
+\item Tiene soporte Enterprise.
+\end{itemize}
+
+\subsubsection{Netdata}
+\label{sec:org08c880d}
+Netdata por el contrario:
+\begin{itemize}
+\item Puede ser integrado con facilidad en sistemas con un kernel Linux.
+\item Tiene alertas predefinidas y se pueden definir más.
+\item No tiene dependencias de ningún tipo ya que cuenta con su propio web server.
+\item Es altamente extensible y está optimizado para hacer la detección visual de anomalías más sencilla.
+\item Es plug and play y no requiere de ninguna configuración inicialmente.
+\item Tiene una gran comunidad en Github y puede vincularse a él.
+\item No tiene soporte Enterprise.
+\end{itemize}
+
+\subsubsection{Resolución}
+\label{sec:orgb932536}
+Debido a no tener más especificaciones, valoramos la capacidad de tener mediciones estables desde el minuto uno. Así como su falta de dependencias (debido a que cuenta con servidor web propio) y su gran facilidad de uso e instalación.
+
+La instalación se realizará con el inventario construido anteriormente, mediante su imagen en Docker Hub \cite{netdatahub2020}.
+
+\begin{minted}[]{yaml}
+---
+- hosts: server
+
+  tasks:
+  - name: Instalar dependencias
+    apt:
+      pkg:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+      - python3-pip
+      - virtualenv
+      - python3-setuptools
+      - containerd.io
+      update_cache: yes
+
+  - name: Asegurarse de que el módulo de python de docker esta presente
+    pip:
+      name: docker[tls]
+
+  - name: Añadir la clave gpg con apt_key
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+
+  - name: Añadir el repositorio de Docker
+    apt_repository:
+      repo: deb https://download.docker.com/linux/ubuntu bionic stable
+      state: present
+
+  - name: Instalar Docker
+    apt:
+      name: docker-ce
+
+  - name: Asegurarse de que Docker esta realmente arrancado
+    systemd:
+      state: started
+      name: docker
+
+  - name: Creación de un contenedor de netdata
+    docker_container:
+      name: dockerNetdata
+      image: netdata/netdata
+      state: started
+      ports:
+        - "19999:19999"
+      volumes:
+        - "/proc:/host/proc:ro"
+        - "/sys:/host/sys:ro"
+        - "/var/run/docker.sock:/var/run/docker.sock:ro"
+\end{minted}
+
+\textbf{Comando para realizar la instalación de Netdata mediante ansible-playbook}:
+
+\begin{minted}[]{sh}
+ansible-playbook -i inventory.ini -u root playbookNetdata.yml --ask-pass
+\end{minted}
+
+Con este playbook instalamos todas las dependencias de Docker, nos aseguramos de que los módulos necesarios se encuentren en el servidor. Instalamos Docker, lo arrancamos y creamos un contenedor de Netdata completamente funcional.
+
+Al finalizar este playbook Fenemo S.L. tendrá en el puerto deseado (en este caso el 19999) acceso al panel principal del servicio de monitorización, redirigido al puerto 19999 en el contenedor. Al estar usando Ansible para la instalación, una vez que alcancemos el estado deseado de la misma, no se harán más cambios sin importar las veces que se ejecute; a esto se le denomina idempotencia \cite[p. 3]{ansi2020}.
+
+\subsection{Facturación}
+\label{sec:org15c61d6}
+
+Los gastos de Fenemo S.L. están recogidos en los siguientes apartados:
+
+\subsubsection{Consumibles}
+\label{sec:orgbd2e2a4}
+Las distintas compras en material, en los que se encuentran portátiles y periféricos:
+\begin{adjustbox}{width={\textwidth},keepaspectratio}
+\centering
+\begin{center}
+\begin{tabular}{llll}
+Descripción & Cantidad & Precio Unitario & Precio Total\\
+\hline
+Thinkpad x395 & 21 Unidades & 1.129,00 E. & 23709,00 E.\\
+SC 200 SeriesEPOS I SENNHEISER & 20 Unidades & 120,00 E. & 2400,00 E.\\
+Marathon M705 & 20 Unidades & 51,99 E. & 1039,00 E.\\
+\end{tabular}
+\end{center}
+\end{adjustbox}
+
+El coste total de los consumibles asciende a los 27148,00 E., por ende nos mantenemos en el margen de los 30000,00 E. Aunque no cumplimos nuestro objetivo propuesto al gastar un 0.5\% más de lo esperado, este incremento esta justificado por la adquisición de un portátil como salvaguarda en caso del fallo de uno de los equipos del lote principal.
+
+\subsubsection{Pago a Complit S.L.}
+\label{sec:orgb23850f}
+Las tareas realizadas por el trabajador de Complit S.L. suman un total de 1 día 4 horas. Teniendo en cuenta que la jornada laboral es de 8 horas, el computo global de horas trabajadas es de \textbf{doce}. Durante las cuales se ha garantizado el correcto funcionamiento de los equipos, sus correspondientes periféricos y el software de monitorización.
+
+\begin{adjustbox}{width={\textwidth},keepaspectratio}
+\centering
+\begin{center}
+\begin{tabular}{ll}
+Descripción de la tarea & Número de horas trabajadas por tarea\\
+\hline
+Compra de los diferentes consumibles & 2 horas\\
+Creación del inventario & 30 minutos\\
+Instalación y testing del software de monitorización & 4 horas\\
+Instalación y comprobación de equipos y periféricos & 4 horas\\
+Creación del playbook y despliegue de los portátiles & 1 hora y 30 minutos\\
+\hline
+Total de horas trabajadas & 12 horas\\
+\end{tabular}
+\end{center}
+\end{adjustbox}
+
+Siendo nuestra tarifa por esta clase de servicios de 50,00 E. por hora trabajada, Complit S.L. recibiría un total de \textbf{600 E.} al finalizar el proyecto. Dentro de este presupuesto se haya cubierto el mantenimiento de los sistemas hasta los 6 meses. También ofrecemos con nuestros servicios la posibilidad de obtener los diferentes manuales y documentos que con los años y la experiencia adquirida creamos, estos manuales se pueden encontrar en \href{https:www.complitdocu.it}{nuestra pagina web}.
+
+\subsection{Finalización del proyecto}
+\label{sec:org0adc8bb}
+
+Una vez finalizado el proyecto, se le dará la documentacion exportada en formato PDF a Fenemo S.L. y el contenido referente a las instalaciones en formato .org, junto con todos los scripts, playbooks, inventarios y métodos usados en el transcurso del mismo.
+
+Se procederá a la entrega de contraseñas, cifradas y firmadas digitalmente, siendo entregadas únicamente las mismas a Juan Manuel Padilla, siendo necesaria primero su identificación como responsable en Fenemo S.L.
+
+Si fuese necesario se entregarán los diferentes playbooks con archivos de variables en los que se almacenen los usuarios y contraseñas de los equipos encriptados mediante ansible-vault.
+
+\section{Protección de datos}
+\label{sec:orgdc45215}
+
+Hay 3 instituciones a tener en cuenta en el ámbito de la protección de datos: el Parlamento Europeo, el Consejo Europeo y el Congreso de los Diputados. Los dos primeros organismos reglaron en 2016 el tratamiento de datos personales y la libre circulación de estos \cite{pae2016}, lo cual derogo la  Directiva 95/46/CE \cite{pae1995}. Debido a esto en España una nueva ley propuesta por el Congreso de los Diputados fue aprobada, la Ley Orgánica 3/2018 \cite{boelopd2018}.
+
+Al ser Complit S.L. una empresa que realiza tratamientos de datos personales con un escaso nivel de riesgo, podemos hacer uso de la herramienta proporcionada por la AEPD \cite{aepd2020}, la cual facilita el cumplimiento del Reglamento General de Protección de Datos.
+
+Los siguientes párrafos son un extracto del documento generado por la herramienta de la AEPD, en el cual también se incluye un distintivo de zona videovigilada:
+
+INFORMACIÓN DE INTERÉS GENERAL
+
+Este documento ha sido diseñado para tratamientos de datos personales de bajo riesgo de donde se deduce que el mismo no podrá ser utilizado para tratamientos de datos personales que incluyan datos personales  relativos al origen étnico o racial, ideología política religiosa o filosófica, filiación sindical, datos genéticos y biométricos, datos de salud, y datos de orientación sexual de las personas así como cualquier otro tratamiento de datos que entrañe alto riesgo para los derechos y libertades de las personas.
+
+El artículo 5.1.f del Reglamento General de Protección de Datos (en adelante, RGPD) determina la necesidad de establecer garantías de seguridad adecuadas contra el tratamiento no autorizado o ilícito, contra la pérdida de los datos personales, la destrucción o el daño accidental. Esto implica el establecimiento de medidas técnicas y organizativas encaminadas a asegurar la integridad y confidencialidad de los datos personales y la posibilidad de demostrar, tal y como establece el artículo 5.2, que estas medidas se han llevado a la práctica (responsabilidad proactiva).
+
+Además, deberá establecer mecanismos visibles, accesibles y sencillos para el ejercicio de derechos y tener definidos procedimientos internos para garantizar la atención efectiva de las solicitudes recibidas.
+
+ATENCIÓN DEL EJERCICIO DE DERECHOS
+
+El responsable del tratamiento informará a todos los trabajadores acerca del procedimiento para atender los derechos de los interesados, definiendo de forma clara los mecanismos por los que pueden ejercerse los derechos (medios electrónicos, referencia al Delegado de Protección de Datos si lo hubiera, dirección postal, etc.) y teniendo en cuenta lo siguiente:
+
+\begin{itemize}
+\item Previa presentación de su documento nacional de identidad o pasaporte, los titulares de los datos personales (interesados) podrán ejercer sus derechos de acceso, rectificación, supresión, oposición, portabilidad y limitación del tratamiento. El ejercicio de los derechos es gratuito.
+\item El responsable del tratamiento deberá dar respuesta a los interesados sin dilación indebida y de forma concisa, transparente, inteligible, con un lenguaje claro y sencillo y conservar la prueba del cumplimiento del deber de responder a las solicitudes de ejercicio de derechos formuladas.
+\item Si la solicitud se presenta por medios electrónicos, la información se facilitará por estos medios cuando sea posible, salvo que el interesado solicite que sea de otro modo.
+\item Las solicitudes deben responderse en el plazo de 1 mes desde su recepción, pudiendo prorrogarse en otros dos meses teniendo en cuenta la complejidad o el número de solicitudes, pero en ese caso debe informarse al interesado de la prórroga en el plazo de un mes a partir de la recepción de la solicitud, indicando los motivos de la dilación.
+\end{itemize}
+
+MEDIDAS ORGANIZATIVAS
+
+INFORMACIÓN QUE DEBERÁ SER CONOCIDA POR TODO EL PERSONAL CON ACCESO A DATOS PERSONALES
+
+Todo el personal con acceso a los datos personales deberá tener conocimiento de sus obligaciones con relación a los tratamientos de datos personales y serán informados acerca de dichas obligaciones. La información mínima que será conocida por todo el personal será la siguiente:
+
+DEBER DE CONFIDENCIALIDAD Y SECRETO
+
+\begin{itemize}
+\item Se deberá evitar el acceso de personas no autorizadas a los datos personales. A tal fin se evitará dejar los datos personales expuestos a terceros (pantallas electrónicas desatendidas, documentos en papel en zonas de acceso público, soportes con datos personales, etc.). Esta consideración incluye las pantallas que se utilicen para la visualización de imágenes del sistema de videovigilancia. Cuando se ausente del puesto de trabajo, se procederá al bloqueo de la pantalla o al cierre de la sesión.
+
+\item Los documentos en papel y soportes electrónicos se almacenarán en lugar seguro (armarios o estancias de acceso restringido) durante las 24 horas del día.
+
+\item No se desecharán documentos o soportes electrónicos (cd, pen drives, discos duros, etc.) con datos personales sin garantizar su destrucción efectiva.
+
+\item No se comunicarán datos personales o cualquier otra información de carácter personal a terceros, prestando especial atención a no divulgar datos personales protegidos durante las consultas telefónicas, correos electrónicos, etc.
+
+\item El deber de secreto y confidencialidad persiste incluso cuando finalice la relación laboral del trabajador con la empresa.
+\end{itemize}
+
+VIOLACIONES DE SEGURIDAD DE DATOS DE CARÁCTER PERSONAL
+
+Cuando se produzcan violaciones de seguridad de datos de carácter personal como, por ejemplo, el robo o acceso indebido a los datos personales se notificará a la Agencia Española de Protección de Datos en término de 72 horas acerca de dichas violaciones de seguridad, incluyendo toda la información necesaria para el esclarecimiento de los hechos que hubieran dado lugar al acceso indebido a los datos personales. La notificación se realizará por medios electrónicos a través de la sede electrónica de la Agencia Española de Protección de Datos en la dirección \url{https://sedeagpd.gob.es/sede-electronica-web/}.
+
+\section{Riesgos laborales}
+\label{sec:orgd0ac22b}
+
+El trabajador de Complit S.L. como \textbf{administrador de sistemas} se puede encontrar ante una serie de situaciones potencialmente peligrosas y riesgos laborales. Mediante un análisis preventivo de los daños que pueden producirse llegamos a una serie de conclusiones recogidas en la siguiente tabla.
+
+\begin{adjustbox}{width={\textwidth},keepaspectratio}
+\centering
+
+\begin{center}
+\begin{tabular}{lll}
+Daños & Concreción & Resolución\\
+\hline
+Riesgos Ergonómicos & Posturas inadecuadas & Correcto uso del mobiliario ergonómico\\
+ & Lesiones por esfuerzo repetitivo & Estiramiento y calentamiento en muñecas y falanges\\
+ &  & \\
+Caídas de altura & Caídas a mismo nivel & Calzado con suelas antideslizantes\\
+ & Caídas a distinto nivel & Correcta señalización de los desniveles\\
+ &  & \\
+Riesgos por el uso de PVD & Problemas en la vista & Descansos frecuentes y buena iluminacion\\
+ & Dolor en la zona lumbar & Promover el ejercicio y los estiramientos\\
+\end{tabular}
+\end{center}
+\end{adjustbox}
+
+\newpage
+
+\section{Conclusión}
+\label{sec:orgfa6f30d}
+Al finalizar este proyecto uno comprende cuanto se trabajado en estos dos años. No solo en cuestión de materias y tecnologías, sino también en la independencia que ganas al cursar el ciclo de Administración de Sistemas Informáticos en Red. Estos dos años son una iniciación al campo donde aprendemos las diferentes especialidades de nuestra profesión.
+
+Los días de investigación anteriores a la realización del trabajo y durante el transcurso del mismo son increíbles. Uno se da cuenta de lo que realmente sabe y puede llegar a aprender. Conceptos completamente nuevos o que se pueden relacionar con otros ya interiorizados.
+
+La licencia GNU GPLv3 bajo la que este proyecto se encuentra les permite a otros estudiar, modificar, ejecutar y compartir este trabajo; siéntanse libres de aprender y mejorar cualquier apartado de este proyecto.
+
+Muchísimas gracias a los profesores por estos dos años de formación y me atrevería a decir de compañerismo, habéis sido de gran ayuda en los momentos difíciles.
+
+Andrés Álvarez De Lázaro
+
+\newpage
+
+\bibliography{bibliografía}
+\bibliographystyle{IEEEtran}
+\end{document}

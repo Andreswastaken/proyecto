@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+sudo dd \PYG{k}{if}\PYG{o}{=}\PYGZti{}/isos/faicd.iso \PYG{n+nv}{of}\PYG{o}{=}/dev/sdb \PYG{n+nv}{oflag}\PYG{o}{=}sync \PYG{n+nv}{status}\PYG{o}{=}progress \PYG{n+nv}{bs}\PYG{o}{=}4M
+\end{Verbatim}

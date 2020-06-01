@@ -1,0 +1,53 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nn}{\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{hosts}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{server}
+
+  \PYG{n+nt}{tasks}\PYG{p}{:}
+  \PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{name}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Instalar dependencias}
+    \PYG{n+nt}{apt}\PYG{p}{:}
+      \PYG{n+nt}{pkg}\PYG{p}{:}
+      \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+lScalar+lScalarPlain}{apt\PYGZhy{}transport\PYGZhy{}https}
+      \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+lScalar+lScalarPlain}{ca\PYGZhy{}certificates}
+      \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+lScalar+lScalarPlain}{curl}
+      \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+lScalar+lScalarPlain}{software\PYGZhy{}properties\PYGZhy{}common}
+      \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+lScalar+lScalarPlain}{python3\PYGZhy{}pip}
+      \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+lScalar+lScalarPlain}{virtualenv}
+      \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+lScalar+lScalarPlain}{python3\PYGZhy{}setuptools}
+      \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+lScalar+lScalarPlain}{containerd.io}
+      \PYG{n+nt}{update\PYGZus{}cache}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{yes}
+
+  \PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{name}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Asegurarse de que el módulo de python de docker esta presente}
+    \PYG{n+nt}{pip}\PYG{p}{:}
+      \PYG{n+nt}{name}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{docker[tls]}
+
+  \PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{name}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Añadir la clave gpg con apt\PYGZus{}key}
+    \PYG{n+nt}{apt\PYGZus{}key}\PYG{p}{:}
+      \PYG{n+nt}{url}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{https://download.docker.com/linux/ubuntu/gpg}
+      \PYG{n+nt}{state}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{present}
+
+  \PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{name}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Añadir el repositorio de Docker}
+    \PYG{n+nt}{apt\PYGZus{}repository}\PYG{p}{:}
+      \PYG{n+nt}{repo}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{deb https://download.docker.com/linux/ubuntu bionic stable}
+      \PYG{n+nt}{state}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{present}
+
+  \PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{name}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Instalar Docker}
+    \PYG{n+nt}{apt}\PYG{p}{:}
+      \PYG{n+nt}{name}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{docker\PYGZhy{}ce}
+
+  \PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{name}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Asegurarse de que Docker esta realmente arrancado}
+    \PYG{n+nt}{systemd}\PYG{p}{:}
+      \PYG{n+nt}{state}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{started}
+      \PYG{n+nt}{name}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{docker}
+
+  \PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{name}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Docker run con un contenedor de netdata}
+    \PYG{n+nt}{docker\PYGZus{}container}\PYG{p}{:}
+      \PYG{n+nt}{name}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{dockerNetdata}
+      \PYG{n+nt}{image}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{netdata/netdata}
+      \PYG{n+nt}{state}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{started}
+      \PYG{n+nt}{ports}\PYG{p}{:}
+        \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+s}{\PYGZdq{}19999:19999\PYGZdq{}}
+      \PYG{n+nt}{volumes}\PYG{p}{:}
+        \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+s}{\PYGZdq{}/proc:/host/proc:ro\PYGZdq{}}
+        \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+s}{\PYGZdq{}/sys:/host/sys:ro\PYGZdq{}}
+        \PYG{p+pIndicator}{\PYGZhy{}} \PYG{l+s}{\PYGZdq{}/var/run/docker.sock:/var/run/docker.sock:ro\PYGZdq{}}
+\end{Verbatim}

@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+ansible\PYGZhy{}playbook \PYGZhy{}i inventory.ini \PYGZhy{}u root playbookNetdata.yml \PYGZhy{}\PYGZhy{}ask\PYGZhy{}pass
+\end{Verbatim}
